@@ -8,7 +8,7 @@ function Login({ setIsAuth }) {
 
   const cookies = new Cookies();
   const login = () => {
-    Axios.post("https://vercel-backend-mlj2lhxsw-nottysukkus-projects.vercel.app/login", {
+    Axios.post("https://express-server-nine-gamma.vercel.app/login", {
       username,
       password,
     }).then((res) => {

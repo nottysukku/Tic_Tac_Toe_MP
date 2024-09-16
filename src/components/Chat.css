@@ -12,7 +12,11 @@
   transition: all 0.3s ease;
 }
 
+#waiting{
+color:white;
+font-weight: bolder;
 
+}
 
 .popup {
   position: fixed;

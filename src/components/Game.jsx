@@ -30,7 +30,7 @@ function Game({ channel, setChannel }) {
   }, [result]);
 
   if (!playersJoined) {
-    return <div> Waiting for other player to join...</div>;
+    return <div id="waiting"> Waiting for other player to join...</div>;
   }
 
   return (

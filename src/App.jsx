@@ -54,6 +54,10 @@ function App() {
     setShowSignUp(false);
   };
 
+  const handleBackhome=()=>{
+    window.location.href="https://game-site-orpin.vercel.app/";
+  }
+
   return (
     <div className="App">
       {isAuth ? (
@@ -80,6 +84,7 @@ function App() {
           )}
         </div>
       )}
+      <button onClick={handleBackhome} id="backhome">Back Home?</button>
     </div>
   );
 }

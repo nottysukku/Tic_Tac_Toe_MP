@@ -9,7 +9,10 @@ function Game({ channel, setChannel }) {
   );
   const [result, setResult] = useState({ winner: "none", state: "none" });
   const [showPopup, setShowPopup] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false); // State to toggle chat on mobile
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [board, setBoard] = useState(Array(9).fill(""));
+  const [player, setPlayer] = useState("X");
+  const [turn, setTurn] = useState("X");
 
   useEffect(() => {
     const handleUserWatchingStart = (event) => {
@@ -17,9 +20,11 @@ function Game({ channel, setChannel }) {
     };
 
     channel.on("user.watching.start", handleUserWatchingStart);
+    channel.on("game-restart", handleGameRestart);
 
     return () => {
       channel.off("user.watching.start", handleUserWatchingStart);
+      channel.off("game-restart", handleGameRestart);
     };
   }, [channel]);
 
@@ -29,13 +34,43 @@ function Game({ channel, setChannel }) {
     }
   }, [result]);
 
+  const handleGameRestart = (event) => {
+    setBoard(Array(9).fill(""));
+    setResult({ winner: "none", state: "none" });
+    setPlayer("X");
+    setTurn("X");
+    setShowPopup(false);
+  };
+
+  const restartGame = async () => {
+    try {
+      await channel.sendEvent({
+        type: 'game-restart',
+        data: { message: 'restart' }
+      });
+      handleGameRestart();
+    } catch (error) {
+      console.error("Error sending restart event:", error);
+    }
+  };
+
   if (!playersJoined) {
     return <div id="waiting"> Waiting for other player to join...</div>;
   }
 
   return (
     <div className="gameContainer">
-      <Board result={result} setResult={setResult} />
+      <Board 
+        board={board} 
+        setBoard={setBoard}
+        player={player}
+        setPlayer={setPlayer}
+        turn={turn}
+        setTurn={setTurn}
+        result={result}
+        setResult={setResult}
+        channel={channel}
+      />
 
       {/* Chatbox Toggle Button (visible on mobile only) */}
       <button 
@@ -66,8 +101,11 @@ function Game({ channel, setChannel }) {
           setChannel(null);
         }}
       >
-        {" "}
         Leave Game
+      </button>
+
+      <button onClick={restartGame} className="restart-button">
+        Restart Game
       </button>
 
       {showPopup && (

@@ -1,7 +1,7 @@
 /* Global Styles */
 :root {
   --primary-color: #3498db;
-  --secondary-color: #2ecc71;
+  --secondary-color: #2e46cc;
   --text-color: #34495e;
   --background-color: #ecf0f1;
   --card-background: #ffffff;
@@ -11,7 +11,8 @@
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  background-image: url(https://as1.ftcdn.net/v2/jpg/05/48/56/38/1000_F_548563894_s5tGFJjPhc7lp5uG4iJkR77QbgvrKr9e.jpg);
+  background:linear-gradient(#34495e,black);
+
   color: var(--text-color);
   line-height: 1.6;
 }

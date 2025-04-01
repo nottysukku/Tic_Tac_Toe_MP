@@ -55,7 +55,7 @@ function App() {
   };
 
   const handleBackhome=()=>{
-    window.location.href="https://game-site-orpin.vercel.app/";
+    window.location.href="https://gamesite-sc.netlify.app/";
   }
 
   return (
